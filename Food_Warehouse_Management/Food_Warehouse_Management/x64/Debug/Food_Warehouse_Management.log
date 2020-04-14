@@ -1,0 +1,8 @@
+﻿  Food_Warehouse_Management.cpp
+D:\Project\Project1\Food_Warehouse_Management\Food_Warehouse_Management\Food_Warehouse_Management.cpp(301,52): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Project\Project1\Food_Warehouse_Management\Food_Warehouse_Management\Food_Warehouse_Management.cpp(328,52): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Project\Project1\Food_Warehouse_Management\Food_Warehouse_Management\Food_Warehouse_Management.cpp(342,52): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Project\Project1\Food_Warehouse_Management\Food_Warehouse_Management\Food_Warehouse_Management.cpp(355,52): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Project\Project1\Food_Warehouse_Management\Food_Warehouse_Management\Food_Warehouse_Management.cpp(368,52): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Project\Project1\Food_Warehouse_Management\Food_Warehouse_Management\Food_Warehouse_Management.cpp(152,16): warning C4101: 'statement': unreferenced local variable
+  Food_Warehouse_Management.vcxproj -> D:\Project\Project1\Food_Warehouse_Management\x64\Debug\Food_Warehouse_Management.exe
