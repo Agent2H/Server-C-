@@ -151,7 +151,7 @@ int main(int argc, char* argv)
 	const char* data = "Callback function called";
 	sqlite3_stmt* statement;
 	/* Open database */
-	rc = sqlite3_open("foodmanagement.db", &db);
+	rc = sqlite3_open("foodwarehouse.db", &db);
 
 	if (rc) {
 		fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
@@ -169,8 +169,6 @@ int main(int argc, char* argv)
  //       "BRAND          TEXT    NOT NULL,"\
  //       "TYPE           TEXT    NOT NULL," \
  //       "NUMBER         TEXT     NOT NULL," \
- //       "UNIT           TEXT, "\
- //       "TYPEOFSTORAGE  TEXT    NOT NULL,"\
  //       "EXPIRYDATE     TEXT    NOT NULL);";
 
 	///* Execute SQL statement */
@@ -184,14 +182,14 @@ int main(int argc, char* argv)
 	//    fprintf(stdout, "Table created successfully\n");
 	//}
 	///* Create SQL statement */
-	//sql = "INSERT INTO FOODMANAGEMENT (ID,NAME,BRAND,TYPE,NUMBER,UNIT,TYPEOFSTORAGE,EXPIRYDATE) "  \
- //       "VALUES (1, 'Chickeneggs','KHU', 'Eggs', 2,' ', 'Refrigerated','2020-05-15' ); " \
- //       "INSERT INTO FOODMANAGEMENT (ID,NAME,BRAND,TYPE,NUMBER,UNIT,TYPEOFSTORAGE,EXPIRYDATE) "  \
- //       "VALUES (2, 'Corn','DHA', 'Vegetables', 3,'kg','Room', '2020-04-15' ); "     \
- //       "INSERT INTO FOODMANAGEMENT (ID,NAME,BRAND,TYPE,NUMBER,UNIT,TYPEOFSTORAGE,EXPIRYDATE)" \
- //       "VALUES (3, 'Honey','VNU', 'Beverage', 4,'Bottle','Room', '2021-03-15' );" \
- //       "INSERT INTO FOODMANAGEMENT (ID,NAME,BRAND,TYPE,NUMBER,UNIT,TYPEOFSTORAGE,EXPIRYDATE)" \
- //       "VALUES (4, 'Cabbage','HCMUT', 'Vegetables',5,'kg', 'Refrigerated ', '2020-05-24' );";
+	//sql = "INSERT INTO FOODMANAGEMENT (ID,NAME,BRAND,TYPE,NUMBER,EXPIRYDATE) "  \
+ //       "VALUES (1, 'Chicken Eggs','KHU', 'Refrigerated', 2, '2020-05-15' ); " \
+ //       "INSERT INTO FOODMANAGEMENT (ID,NAME,BRAND,TYPE,NUMBER,EXPIRYDATE) "  \
+ //       "VALUES (2, 'Corn','DHA', 'Room', 3,'2020-04-15' ); "     \
+ //       "INSERT INTO FOODMANAGEMENT (ID,NAME,BRAND,TYPE,NUMBER,EXPIRYDATE)" \
+ //       "VALUES (3, 'Honey','VNU', 'Room', 4, '2021-03-15' );" \
+ //       "INSERT INTO FOODMANAGEMENT (ID,NAME,BRAND,TYPE,NUMBER,EXPIRYDATE)" \
+ //       "VALUES (4, 'Cabbage','HCMUT', 'Refrigerated',5,'2020-05-24' );";
 
 	///* Execute SQL statement */
 	//rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
@@ -305,8 +303,8 @@ int main(int argc, char* argv)
 				string str2(buffer);
 				vector<string> a = split(str2, '+');
 
-				sql = "INSERT INTO FOODMANAGEMENT (ID,NAME,BRAND,TYPE,NUMBER,UNIT,TYPEOFSTORAGE,EXPIRYDATE) "\
-					"VALUES ( '" + a[1] + "','" + a[2] + "','" + a[3] + "','" + a[4] + "','" + a[5] + "','" + a[6] + "','" + a[7] + "','" + a[8] + "');";
+				sql = "INSERT INTO FOODMANAGEMENT (ID,NAME,BRAND,TYPE,NUMBER,EXPIRYDATE) "\
+					"VALUES ( '" + a[1] + "','" + a[2] + "','" + a[3] + "','" + a[4] + "','" + a[5] + "','" + a[6] + "');";
 				rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
 				a.clear();
 				str1.clear();
@@ -317,12 +315,12 @@ int main(int argc, char* argv)
 			switch (buffer[0])
 			{
 
-			case 'u':
+			case 'u': 
 				string str3(buffer);
 				vector<string> u = split(str3, '+');
-				sql = "UPDATE FOODMANAGEMENT set NUMBER='" + u[5] + "' where NAME='" + u[2] + "' OR BRAND='" + u[3] + "' OR TYPE='" + u[4] + "' OR NUMBER='" + u[5] + "'  OR TYPEOFSTORAGE='" + u[7] + "'; " \
-					"UPDATE FOODMANAGEMENT set EXPIRYDATE='" + u[8] + "' where NAME='" + u[2] + "' OR BRAND='" + u[3] + "' OR TYPE='" + u[4] + "' OR NUMBER='" + u[5] + "'  OR TYPEOFSTORAGE='" + u[7] + "'; " \
-					"UPDATE FOODMANAGEMENT set TYPEOFSTORAGE='" + u[7] + "' where NAME='" + u[2] + "' OR BRAND='" + u[3] + "' OR TYPE='" + u[4] + "' OR NUMBER='" + u[5] + "'  OR TYPEOFSTORAGE='" + u[7] + "'; " \
+				sql = "UPDATE FOODMANAGEMENT set NUMBER='" + u[5] + "' where ID='" + u[1] + "' OR NAME='" + u[2] + "'    ; " \
+					"UPDATE FOODMANAGEMENT set EXPIRYDATE='" + u[6] + "' where ID='" + u[1] + "' OR NAME='" + u[2] + "'   ; " \
+					"UPDATE FOODMANAGEMENT set TYPE='" + u[4] + "' where ID='" + u[1] + "' OR NAME='" + u[2] + "' ; " \
 					"SELECT * from FOODMANAGEMENT ";
 				rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
 				send(clientSocket, str1.c_str(), str1.size(), 0);
@@ -336,7 +334,7 @@ int main(int argc, char* argv)
 			case 'e':
 				string str4(buffer);
 				vector<string> e = split(str4, '+');
-				sql = "DELETE FROM FOODMANAGEMENT where ID='" + e[1] + "' OR NAME='" + e[2] + "' OR BRAND='" + e[3] + "' OR TYPE='" + e[4] + "' OR NUMBER='" + e[5] + "'  OR TYPEOFSTORAGE='" + e[7] + "'; " \
+				sql = "DELETE FROM FOODMANAGEMENT where ID='" + e[1] + "' OR NAME='" + e[2] + "' OR BRAND='" + e[3] + "' OR TYPE='" + e[4] + "' OR NUMBER='" + e[5] + "'; " \
 					"SELECT * from FOODMANAGEMENT ";
 				rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
 				send(clientSocket, str1.c_str(), str1.size(), 0);
